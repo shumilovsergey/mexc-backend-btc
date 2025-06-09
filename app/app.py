@@ -52,10 +52,10 @@ def load():
     prices = fetch_btc_prices(now - one_day, now)
     if not prices:
         logging.error(" No data fetched (timeout or error)")
-        return " No data fetched (timeout or error)", 500
+        return "No data fetched (timeout or error)", 500
     insert_prices(prices)
-    logging.info(f"Loaded {len(prices)} entries")
-    return f"Loaded {len(prices)} entries"
+    logging.info(f" Loaded {len(prices)} entries")
+    return f" Loaded {len(prices)} entries"
 
 @app.route("/prices")
 def prices():
@@ -68,5 +68,5 @@ def prices():
     return jsonify(data)
 
 if __name__ == "__main__":
-    # Flask will use FLASK_RUN_HOST and FLASK_RUN_PORT from env
-    app.run()
+    port = int(os.getenv("FLASK_RUN_PORT", 5000))
+    app.run(host="0.0.0.0", port=port)

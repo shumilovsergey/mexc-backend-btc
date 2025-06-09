@@ -13,5 +13,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Use Flask CLI with env vars from docker-compose
-CMD ["flask", "run"]
+# Launch the app directly (will bind 0.0.0.0 per app.py)
+CMD ["python", "app.py"]
