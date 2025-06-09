@@ -1,14 +1,11 @@
+
 services:
   web:
     build: ./app
     ports:
-      - "9090:5000"           # map host 9090 → container 5000
+      - "9090:5000"            # host 9090 → container 5000
     volumes:
-      - ./app:/app            # live‐code
-      - ./data:/data          # persist SQLite here
-    environment:
-      - FLASK_APP=app.py
-      - FLASK_RUN_HOST=0.0.0.0
-      - FLASK_RUN_PORT=5000
-      - API_KEY               # pulled from host .env
-      - API_SECRET
+      - ./app:/app             # live code mount
+      - ./data:/data           # persist SQLite DB here
+    env_file:
+      - ./app/.env             # load API_KEY, API_SECRET, DB_PATH

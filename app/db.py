@@ -7,10 +7,14 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute("""
-      CREATE TABLE IF NOT EXISTS btc_price (
+    CREATE TABLE IF NOT EXISTS btc_price (
         timestamp INTEGER PRIMARY KEY,
-        open REAL, high REAL, low REAL, close REAL, volume REAL
-      )
+        open REAL,
+        high REAL,
+        low REAL,
+        close REAL,
+        volume REAL
+    )
     """)
     conn.commit()
     conn.close()

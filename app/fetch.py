@@ -1,3 +1,4 @@
+import logging
 import requests
 
 def fetch_btc_prices(start_time, end_time):
@@ -13,8 +14,7 @@ def fetch_btc_prices(start_time, end_time):
         res.raise_for_status()
         return res.json().get("data", [])
     except requests.Timeout:
-        print(f"[ERROR] timeout fetching {start_time}–{end_time}")
-        return []
-    except Exception as e:
-        print(f"[ERROR] fetching data: {e}")
-        return []
+        logging.error(f"[TIMEOUT] Fetch {start_time}–{end_time}")
+    except requests.RequestException as e:
+        logging.error(f"[REQUEST ERROR] {e}")
+    return []
