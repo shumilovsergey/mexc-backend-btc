@@ -7,4 +7,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# Ensure the data directory exists
+RUN mkdir -p /data
+
 CMD ["python", "app.py"]

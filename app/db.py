@@ -1,7 +1,9 @@
 import sqlite3
 
-DB_PATH = "btc.db"
+# Use /data so DB file persists via mounted volume
+DB_PATH = "/data/btc.db"
 
+# Initialize the SQLite database and table
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -18,7 +20,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-
+# Insert multiple price entries, ignoring duplicates
 def insert_prices(prices):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -30,7 +32,7 @@ def insert_prices(prices):
     conn.commit()
     conn.close()
 
-
+# Get the minimum and maximum timestamps stored
 def get_min_max_timestamps():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -39,13 +41,13 @@ def get_min_max_timestamps():
     conn.close()
     return mn, mx
 
-
+# Retrieve price data, optionally filtered by start/end timestamps
 def get_prices(start=None, end=None):
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    if start and end:
+    if start is not None and end is not None:
         c.execute(
-            "SELECT * FROM btc_price WHERE timestamp BETWEEN ? AND ? ORDER BY timestamp ASC",
+            "SELECT * FROM btc_price WHERE timestamp BETWEEN ? AND ? ORDER BY timestamp ASC", 
             (start, end)
         )
     else:
