@@ -1,0 +1,7 @@
+services:
+  web:
+    build: ./app
+    ports:
+      - "8080:5000"
+    volumes:
+      - ./app:/app
